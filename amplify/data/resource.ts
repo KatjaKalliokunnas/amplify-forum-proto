@@ -6,7 +6,7 @@ const schema = a.schema({
       headpost: a.string(),
       response: a.string().array(), // vastaus tallennetaan taulukkoon
     })
-    .authorization((allow) => [allow.owner()]), // pääsy apikey:llä
+    .authorization((allow) => [allow.publicApiKey()]), // pääsy apikey:llä
 });
 
 export type Schema = ClientSchema<typeof schema>;
@@ -14,6 +14,7 @@ export type Schema = ClientSchema<typeof schema>;
 export const data = defineData({
   schema,
   authorizationModes: {
-    defaultAuthorizationMode: 'userPool',
+    defaultAuthorizationMode: 'apiKey',
+    apiKeyAuthorizationMode: { expiresInDays: 30 },
   },
 });
