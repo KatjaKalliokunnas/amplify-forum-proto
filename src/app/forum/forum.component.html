@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="header">
+    <h1>Tässä on meidän hieno foorumi</h1>
+  </div>
+  <div>
+    <div class="column middle">
+      <div *ngFor="let forumItem of forumpost">
+        <mat-card appearance="outlined" class="post">
+          <p>{{ userName }}</p>
+          <p>{{ forumItem.headpost }}</p>
+          <p>{{ forumItem.createdAt | date: 'short' }}</p>
+
+          <section>
+            <button mat-button color="primary" (click)="response(forumItem.id)">
+              Vastaa
+            </button>
+          </section>
+          <section>
+            <button mat-button color="warn" (click)="deleteItem(forumItem.id)">
+              Poista
+            </button>
+          </section>
+        </mat-card>
+
+        <div *ngFor="let item of forumItem.response" class="response">
+          <p>X vastasi</p>
+          {{ item }}
+          <p>{{ forumItem.updatedAt }}</p>
+          <mat-divider></mat-divider>
+        </div>
+      </div>
+    </div>
+    <div class="column side">
+      <mat-form-field appearance="outline" class="input">
+        <mat-label>Kirjoita uusi foorumipostaus</mat-label>
+        <input [(ngModel)]="inputValue" matInput placeholder="Placeholder" />
+        <button mat-raised-button class="button" (click)="newpost()">
+          Lähetä
+        </button>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
